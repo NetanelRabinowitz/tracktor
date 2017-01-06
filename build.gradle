@@ -1,0 +1,40 @@
+allprojects {
+    group = "tracktor"
+    version = 0.1
+}
+
+version 'unspecified'
+
+apply plugin: 'java'
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'scala'
+    apply plugin: "jacoco"
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        jcenter()
+        mavenCentral()
+
+    }
+
+    gradle.startParameter.continueOnFailure = false
+
+
+
+    dependencies {
+        compile group: 'org.scala-lang', name: 'scala-library', version: "$version_scala"
+        testCompile group: 'junit', name: 'junit', version: "$version_junit"
+        testCompile group: 'org.scalatest', name: "scalatest_${cur_scala}", version: "$version_scalatest"
+        testCompile group: "org.scalacheck", name: "scalacheck_${cur_scala}", version: "$version_scalacheck"
+
+    }
+
+    // Disable the test report for the individual test task
+    test {
+        reports.html.enabled = false
+    }
+}
